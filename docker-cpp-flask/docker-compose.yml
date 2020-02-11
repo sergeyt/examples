@@ -1,0 +1,25 @@
+version: "3.2"
+services:
+  core:
+    container_name: core
+    build:
+      context: ./core
+      dockerfile: ./Dockerfile
+    restart: always
+    command: tail -f /dev/null
+  api:
+    container_name: api
+    depends_on:
+      - core
+    build:
+      context: ./api
+      dockerfile: ./Dockerfile
+    environment:
+      FLASK_ENV: development
+      FLASK_PORT: 8111
+    volumes:
+      - ./api:/app
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    ports:
+      - 8111:8111
+    restart: always
