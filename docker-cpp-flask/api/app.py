@@ -11,8 +11,8 @@ app = Flask(__name__)
 app.debug = True
 
 
-@app.route('/api/test')
-def get_configs():
+@app.route('/api/hello')
+def say_hello():
     process = Popen(["docker", "exec", "core", "/core/sample_app"],
                     stdout=PIPE)
     (output, err) = process.communicate()
